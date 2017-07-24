@@ -1,0 +1,42 @@
+{
+  "name": "connector-uploader",
+  "version": "0.0.1",
+  "description": "Anypoint Platform tool for uploading Mule 3.x connectors to Exchange 2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mulesoft/exchange-connectors-uploader.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">= 6.11"
+  },
+  "author": "MuleSoft",
+  "license": "CPAL-1.0",
+  "preferGlobal": true,
+  "bin": {
+    "connector-uploader": "bin/index.js"
+  },
+  "main": "bin/index.js",
+  "files": [
+    "bin/",
+    "config/",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "config": "^1.26.1",
+    "inquirer": "^3.2.1",
+    "lodash": "^4.17.4",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
+    "superagent": "^3.5.2",
+    "superagent-promise": "^1.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.3.0",
+    "eslint-config-airbnb-base": "^11.3.0",
+    "eslint-plugin-import": "^2.7.0"
+  }
+}
