@@ -19,6 +19,7 @@ let groupId;
 let assetId;
 let version;
 let pomFilePath;
+let jarFilePath;
 let studioPluginFilePath;
 
 obtainCredentials()
@@ -42,11 +43,15 @@ obtainCredentials()
   .then((assetVersion) => {
     assetId = assetVersion.assetId;
     version = assetVersion.version;
-    return selectPomFile();
+    return selectFile('Select POM file', '.pom');
   })
   .then((selectedPomFilePath) => {
     pomFilePath = selectedPomFilePath;
-    return selectStudioPluginFile();
+    return selectFile('Select JAR file', '.jar');
+  })
+  .then((selectedJarFilePath) => {
+    jarFilePath = selectedJarFilePath;
+    return selectFile('Select Studio Plugin file', 'studio-plugin.zip');
   })
   .then((selectedStudioPluginFilePath) => {
     studioPluginFilePath = selectedStudioPluginFilePath;
@@ -140,28 +145,14 @@ function enterAssetAV() {
   }]).then((answer) => answer);
 }
 
-function selectPomFile() {
+function selectFile(message, filter) {
   return listFiles()
     .then((files) =>
       inquirer.prompt({
         type:    'list',
         name:    'answer',
-        message: 'Select POM file',
-        choices: files.filter(getFileFilter('.pom'))
-      })
-    )
-    .then((answer) => answer.answer)
-  ;
-}
-
-function selectStudioPluginFile() {
-  return listFiles()
-    .then((files) =>
-      inquirer.prompt({
-        type:    'list',
-        name:    'answer',
-        message: 'Select Studio Plugin file',
-        choices: files.filter(getFileFilter('studio-plugin.zip'))
+        message,
+        choices: files.filter(getFileFilter(filter))
       })
     )
     .then((answer) => answer.answer)
@@ -197,6 +188,13 @@ function uploadFiles() {
     }
   };
 
+  const jarFileRequest = {
+    url:     `${baseUri}.jar`,
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  };
+
   const studioPluginFileRequest = {
     url:     `${baseUri}-studio-plugin.zip`,
     headers: {
@@ -205,9 +203,11 @@ function uploadFiles() {
   };
 
   const pomFileStream = fs.createReadStream(`${process.cwd()}/${pomFilePath}`);
+  const jarFileStream = fs.createReadStream(`${process.cwd()}/${jarFilePath}`);
   const studioPluginFileStream = fs.createReadStream(`${process.cwd()}/${studioPluginFilePath}`);
 
   return pomFileStream.pipe(request.put(pomFileRequest))
+    .then(() => jarFileStream.pipe(request.put(jarFileRequest)))
     .then(() => studioPluginFileStream.pipe(request.put(studioPluginFileRequest)))
   ;
 }
