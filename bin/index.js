@@ -57,6 +57,7 @@ obtainCredentials()
     studioPluginFilePath = selectedStudioPluginFilePath;
     return uploadFiles();
   })
+  .then(() => console.log(`Success! You can see your new connector in: ${config.exchangeApi.baseUri}/${groupId}/${assetId}/${version}`))
   .catch(errorHandler)
 ;
 

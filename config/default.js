@@ -3,7 +3,7 @@ module.exports = {
     baseUri: 'https://anypoint.mulesoft.com/accounts'
   },
   exchangeApi: {
-    baseUri: 'https://anypoint.mulesoft.com/exchange2'
+    baseUri: 'https://anypoint.mulesoft.com/exchange'
   },
   exchangeMavenApi: {
     baseUri: 'https://maven.anypoint.mulesoft.com'
