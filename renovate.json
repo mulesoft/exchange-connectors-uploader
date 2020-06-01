@@ -1,5 +1,25 @@
 {
-  "extends": [
-    "config:semverAllMonthly"
-  ]
+  "separateMajorMinor": false,
+  "packageRules": [
+    {
+      "packagePatterns": ["*"],
+      "rangeStrategy": "replace"
+    },
+    {
+      "depTypeList": ["devDependencies"],
+      "rangeStrategy": "pin"
+    },
+    {
+      "depTypeList": ["peerDependencies"],
+      "rangeStrategy": "widen"
+    }
+  ],
+  "extends": ["group:allNonMajor"],
+  "schedule": ["every weekend"],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "extends": ["group:all"],
+    "schedule": ["every weekend"],
+    "commitMessageAction": "Lockfile maintenance"
+  }
 }
