@@ -34,9 +34,5 @@
     "superagent": "^5.0.0",
     "superagent-promise": "^1.1.0"
   },
-  "devDependencies": {
-    "eslint": "7.1.0",
-    "eslint-config-airbnb-base": "14.1.0",
-    "eslint-plugin-import": "2.20.2"
-  }
+  "devDependencies": {}
 }
